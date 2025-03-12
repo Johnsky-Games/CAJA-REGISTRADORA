@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const taxRateInput = document.getElementById('tax-rate');
     const discountRateInput = document.getElementById('discount-rate');
 
+    const salesHistory = document.getElementById('sales-history');
+
     let total = 0;
     let items = [];
 
@@ -71,10 +73,56 @@ document.addEventListener('DOMContentLoaded', () => {
         discountRateInput.value = '';
     }
 
+    // Función para calcular el total y guardar el registro
+
+    function calculateTotal() {
+        if (items.length === 0) {
+            alert('No hay productos en la lista!');
+            return;
+        }
+
+        const sale = {
+            items: [...items],
+            total: total.toFixed(2),
+            date: new Date().toLocaleDateString()
+        }
+
+        saveSale(sale);
+        displaySale(sale);
+
+        //Resetea el totaL y los items para la próxima venta
+        total = 0;
+        items = [];
+        updateTotalDisplay();
+    }
+
+    // Función para guardar la venta en el localStorage
+
+    function saveSale(sale) {
+        let sales = JSON.parse(localStorage.getItem('sales')) || [];
+        sales.push(sale);
+        localStorage.setItem('sales', JSON.stringify(sales));
+    }
+
+    //Función para mostrar la venta en el historial de ventas
+
+    function displaySale(sale) {
+        const saleElement = document.createElement('div');
+        saleElement.classList.add('sale');
+        saleElement.innerHTML = `
+        <strong>Fecha: </strong> ${sale.date} <br>
+        <strong>Productos: </strong> ${sale.items.join(", ")}<br>
+        <strong>Total: </strong> ${sale.total}
+        `;
+        salesHistory.appendChild(saleElement);
+    }
+
+
     //Añade eventos a los botones
 
     addProductBtn.addEventListener('click', addProduct);
     applyTaxBtn.addEventListener('click', applyTax);
     applyDiscountBtn.addEventListener('click', applyDiscount);
+    calculateTotalBtn.addEventListener('click', calculateTotal);
 
 });
