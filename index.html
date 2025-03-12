@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja Registradora</title>
+
+    <!-- Enlazar la hoja de estilos -->
+
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <div id="register-container">
+        <h1>Caja Registradora</h1>
+
+        <!-- Pantalla de visualización -->
+        <div id="display">
+            <!-- Se mostrará los productos y el total -->
+        </div>
+
+        <!-- Seccióne de botones de control -->
+        <div id="controls">
+            <!-- Botones para agregar productos, aplicar impuestos y descuentos -->
+            <button id="add-product">Añadir Producto</button>
+            <button id="apply-tax">Aplicar Impuestos</button>
+            <button id="apply-discount">Aplicar Descuento</button>
+            <button id="calculate-total">Calcular Total</button>
+        </div>
+
+        <!-- Sección de entrada de datos -->
+        <div id="input-section">
+            <input type="number" placeholder="Precio del producto" id="product-price" min="0">
+            <input type="number" placeholder="Impuesto (%)" id="tax-rate" min="0">
+            <input type="number" placeholder="Descuento (%)" id="discount-rate" min="0">
+        </div>
+
+        <!-- Historial de Ventas -->
+        <div id="sales-history">
+            <h2>Historial de ventas</h2>
+            <!-- Se mostrará el hisotorial de ventas -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
