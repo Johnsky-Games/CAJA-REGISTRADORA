@@ -21,12 +21,11 @@ body {
     font-family: var(--font-family);
     background-color: var(--background-color);
     color: var(--text-color);
-    margin: 0;
+    margin: 20px 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 #register-container {
@@ -34,7 +33,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 25px;
-    max-width: 450px;
+    max-width: 600px;
     width: 100%;
     transition: transform 0.3s ease-in-out;
 
@@ -57,7 +56,7 @@ body {
 /* Botones de control */
 #controls {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 5px;
     margin-bottom: 20px;
 
@@ -134,6 +133,31 @@ input {
     margin-bottom: 10px;
 }
 
+.sale {
+    background: var(--background-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transform: translateY(-5px) scale(1);
+    transition:
+        background 0.3s ease-in-out,
+        transform 0.3s ease-in-out,
+        margin-bottom 0.3s ease-in-out;
+
+    &:hover {
+        background: var(--secondary-color);
+        color: var(--light-color);
+        transform: translateY(5px) scale(1.02);
+        margin-bottom: 15px;
+        transition:
+            background 0.3s ease-in-out,
+            transform 0.3s ease-in-out,
+            margin-bottom 0.3s ease-in-out;
+    }
+}
+
 /* Estilo para dispositivos más pequeños */
 
 @media (max-width: 768px) {
@@ -157,5 +181,9 @@ input {
         input {
             padding: 10px;
         }
+    }
+
+    .sale {
+        padding: 5px;
     }
 }

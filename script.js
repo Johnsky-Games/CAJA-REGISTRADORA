@@ -117,6 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
         salesHistory.appendChild(saleElement);
     }
 
+    //Función para cargar las ventas desde localStorage al iniciar la aplicación
+
+    function loadSalesHistory() {
+        const sales = JSON.parse(localStorage.getItem('sales')) || [];
+        sales.forEach(sale => displaySale(sale));
+    }
 
     //Añade eventos a los botones
 
@@ -125,4 +131,70 @@ document.addEventListener('DOMContentLoaded', () => {
     applyDiscountBtn.addEventListener('click', applyDiscount);
     calculateTotalBtn.addEventListener('click', calculateTotal);
 
+    //Cargar el historial de ventas al cargar la página
+
+    loadSalesHistory();
+
+    // Función para generar un reporte de ventas
+
+    function generateSalesReport() {
+        const sales = JSON.parse(localStorage.getItem('sales')) || [];
+
+        if (sales.length === 0) {
+            alert('No se registran ventas!');
+        }
+
+        let totalSales = 0;
+        let totalTransactions = sales.length;
+        let productSold = {};
+
+        // Recorre cada venta registrada.
+        sales.forEach(sale => {
+            totalSales += parseFloat(sale.total);
+
+            //Recorres cada producto en la venta y cuenta cuanto se han vendido
+            sale.items.forEach(item => {
+                if (productSold[item]) {
+                    productSold[item] += 1;
+                } else {
+                    productSold[item] = 1;
+                }
+            });
+        });
+
+        //Formatea los productos vendidos para mostrarlos en el reporte
+
+        let productSoldFormated = '';
+
+        for (let product in productSold) {
+            productSoldFormated += `${product}: ${productSold[product]} unidades.\n`;
+        }
+
+        //Mostrar el reporte de ventas en la pantalla
+
+        displaySalesReport(totalSales, totalTransactions, productSoldFormated);
+    }
+
+    //Función para mostrar el reporte de ventas
+    function displaySalesReport(totalSales, totalTransactions, productSoldFormated) {
+        const reportElement = document.createElement('div');
+        reportElement.classList.add('sales-report');
+        reportElement.innerHTML = `
+        <h2>Reporte de Ventas</h2>
+        <p><strong>Total de ventas: </strong>$${totalSales.toFixed(2)}</p>
+        <p><strong>Total de transacciones: </strong>${totalTransactions}</p>
+        <p><strong>Productos vendidos: </strong></p>
+        <pre>${productSoldFormated}</pre>
+        `;
+
+        salesHistory.appendChild(reportElement);
+    }
+
+    //Añadir el botón para generar reporte de ventas
+
+    const generateReportBtn = document.createElement('button');
+    generateReportBtn.textContent = 'Generar Reporte de Ventas';
+    generateReportBtn.addEventListener('click', generateSalesReport);
+
+    document.getElementById('controls').appendChild(generateReportBtn);
 });
